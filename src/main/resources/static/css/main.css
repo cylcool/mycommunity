@@ -1,0 +1,12 @@
+.main{
+    background: #efefef;
+}
+.media-object{
+    width: 41px;
+    height: 41px;
+}
+.comment{
+    font-size: 12px;
+    font-weight: normal;
+    color:#999;
+}

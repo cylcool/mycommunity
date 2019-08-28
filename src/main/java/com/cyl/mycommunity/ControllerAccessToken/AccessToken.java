@@ -39,6 +39,5 @@ public class AccessToken {
             } catch (IOException e) {
                 return null;
             }
-
     }
 }

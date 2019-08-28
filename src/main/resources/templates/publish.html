@@ -17,7 +17,7 @@
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="我的社区"></span>
             </button>
-            <a class="navbar-brand" href="/index">我的社区</a>
+            <a class="navbar-brand" href="#">我的社区</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -28,11 +28,7 @@
                 </div>
                 <button type="submit" class="btn btn-default">搜索</button>
             </form>
-
             <ul class="nav navbar-nav navbar-right">
-                <li th:if="${session.user !=null}">
-                    <a href="/publish">发布</a>
-                </li>
                 <li class="dropdown" th:if="${session.user!=null}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.name}"><span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -48,37 +44,38 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-
 <div class="container-fluid  main" style="margin: 30px"><!--整个DIV代表流式布局-->
     <div class="row" style="background-color: white"><!-- 代表这是一行-->
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
-            <h2><span class="glyphicon glyphicon-list-alt" aria-haspopup="true">发现</span></h2>
+            <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</h2>
             <hr>
-            <div class="media" th:each="Question: ${Questions}">
-                <div class="media-left">
-                    <a href="#">
-                        <img class="media-object  img-rounded" th:src="${Question.user.avatar_url}" alt="..." style="height: 41px;width: 41px">
-                    </a>
+            <form action="/publish" method="post">
+                <div class="form-group">
+                    <label for="title">问题标题(简单扼要)：</label>
+                    <input type="text" class="form-control" th:value="${title}" id="title" name="title" placeholder="问题标题....">
                 </div>
-                <div class="media-body">
-                    <h4 class="media-heading" th:text="${Question.title}"></h4>
-                    <span th:text="${Question.description}"></span></br>
-
-                    <span class="comment" >
-                        <spand th:text="${Question.comment_count}"></spand>个评论
-                        <span  th:text="${Question.view_count}"></span>个浏览
-                        <span  th:text="${Question.like_count}"></span>个喜欢
-                        <span  th:text="${#dates.format(Question.gmt_create,'yyyy-MM-dd')}"></span>发布
-                    </span>
+                <div class="form-group">
+                    <label for="description">问题补充(请参照右侧)：</label>
+                    <textarea class="form-control" name="description" th:text="${description}" id="description" cols="30" row="20"></textarea>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="tag">添加标签：</label>
+                    <input type="text" class="form-control" id="tag" th:value="${tag}" name="tag" placeholder="添加标签,隔开">
+                </div>
+                <span th:text="${msg}" style="color: red"></span>
+                <button type="submit" class="btn btn-success" style="float: right;margin-bottom: 15px">发布</button>
+            </form>
         </div>
 
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="height: 50px">
-                <h1>热门话题啊啊啊</h1>
-        </div>
+            <h3>问题发起指南</br>
+                •问题标题:请用精简的语言描述您发布的问题，不超过25字</br>
+                •问题补充:详细补充您的问题内容，并确保问题描述清晰直观，并提供一些相关的资料</br>
+                •选择标签:选择一个或者多个合适的标签，用逗号隔开，每个标签不超过10个字</br>
+            </h3>
         </div>
     </div>
+
 </div>
 </body>
 </html>
